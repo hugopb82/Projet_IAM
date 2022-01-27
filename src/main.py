@@ -8,11 +8,11 @@ import config
 
 def main(args):
 	# Constants
-	EPOCHS = 10
+	EPOCHS = 50
 	BATCH_SIZE = 32
 	NUM_CLASSES = 10
 	IMG_SIZE = (160, 160)
-	VALIDATION_SAMPLES = 5000
+	VALIDATION_SAMPLES = 50
 	UPSCALING_METHOD = 'espcn'
 
 	# Build the model
@@ -21,7 +21,7 @@ def main(args):
 	model.summary()
 
 	# Load the data
-	filenames 	= os.listdir(config.paths['dataset'])
+	filenames 	= os.listdir(config.paths['dataset'])[:150]
 	random.Random(1337).shuffle(filenames)
 	train 		= PL_Sequence(
 		BATCH_SIZE, IMG_SIZE, filenames[:-VALIDATION_SAMPLES], UPSCALING_METHOD
