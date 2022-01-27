@@ -55,7 +55,7 @@ def build_model(img_size, num_classes):
 		previous_block_activation = x  # Set aside next residual
 
 	# Add a per-pixel classification layer
-	outputs = layers.Conv2D(num_classes, 3, activation="softmax", padding="same")(x)
+	outputs = layers.Conv2D(num_classes + 1, 3, activation="softmax", padding="same")(x)
 
 	# Define the model
 	model = keras.Model(inputs, outputs)

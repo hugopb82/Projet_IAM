@@ -13,6 +13,6 @@ class Labelliser():
 		image_segmentation = self.segmenter.segment(np.array(image.resize((160,160))))
 
 		y = np.zeros((160,160))
-		y[:, :] = image_class * image_segmentation
+		y[:, :] = image_class * (image_segmentation + 1)
 		
 		return y
