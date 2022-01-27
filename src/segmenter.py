@@ -13,4 +13,4 @@ class Segmenter():
 
 	def segment(self, image):
 		masks = self.model.predict(np.expand_dims(image, axis=0))[0]
-		return (masks[:,:,0] + masks[:,:,2]) / 2
+		return (masks[:,:,0] + masks[:,:,2]) > masks[:,:,1]

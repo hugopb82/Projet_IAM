@@ -31,8 +31,8 @@ def main(args):
 	)
 
 	# Train the model
-	model.compile(optimizer="rmsprop", loss="categorical_crossentropy")
-	# model.compile(optimizer="rmsprop", loss="sparse_categorical_crossentropy")
+	# model.compile(optimizer="rmsprop", loss="categorical_crossentropy")
+	model.compile(optimizer="rmsprop", loss="sparse_categorical_crossentropy")
 	callbacks = [
 		keras.callbacks.ModelCheckpoint("../results/final.h5", save_best_only=True)
 	]

@@ -32,7 +32,7 @@ class PL_Sequence(keras.utils.Sequence):
 
 		# Load input images and pseudo_labels
 		x = np.zeros((self.batch_size,) + self.img_size + (3,), dtype="float32")
-		y = np.zeros((self.batch_size,) + self.img_size + (10,), dtype="uint8")
+		y = np.zeros((self.batch_size,) + self.img_size, dtype="uint8")
 		for j, filename in enumerate(batch_filenames):
 			image = Image.open(config.paths['dataset'] + filename)
 			x[j] = np.array(image.resize(self.img_size))
