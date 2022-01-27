@@ -8,7 +8,7 @@ class Labelliser():
 		self.segmenter = segmenter
 
 	def label(self, image):
-		upscaled_image = self.upscaler.upscale(np.array(image.resize((64,64))))
+		upscaled_image = self.upscaler.upscale(np.array(image.resize((56,56))))
 		image_class = self.classifier.classify(upscaled_image)
 		image_segmentation = self.segmenter.segment(np.array(image.resize((160,160))))
 
