@@ -1,1 +1,0 @@
-mogrify -resize 224x224\! *

@@ -12,3 +12,7 @@ def load_data(path, size = (64, 64), n = -1):
 	)
 
 	return (filenames, images)
+
+
+def explore(path):
+	return os.listdir(path)

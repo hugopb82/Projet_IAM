@@ -1,13 +1,13 @@
+from matplotlib import pyplot as plt
 from tensorflow import keras
 import numpy as np
 from PIL import Image
 
-import config
-
-from upscaler import Upscaler
-from classifier import Classifier
-from segmenter import Segmenter
-from labelliser import Labelliser
+from src import config
+from src.upscalers.superres import SuperresUpscaler
+from src.classifiers.routes import RoutesClassifier
+from src.segmenter import Segmenter
+from src.labelliser import Labelliser
 
 class PL_Sequence(keras.utils.Sequence):
 	"""Helper to iterate over the data (as Numpy arrays)."""
@@ -17,10 +17,10 @@ class PL_Sequence(keras.utils.Sequence):
 		self.img_size = img_size
 		self.filenames = filenames
 
-		self.upscaler = Upscaler(method)
-		self.classifier = Classifier()
-		self.segmenter = Segmenter()
-		self.labelliser = Labelliser(self.upscaler, self.classifier, self.segmenter)
+		self.upscaler = SuperresUpscaler((256, 256), method)
+		self.classifier = RoutesClassifier()
+		self.segmenter = Segmenter(self.img_size)
+		self.labelliser = Labelliser(self.img_size, self.upscaler, self.classifier, self.segmenter)
 
 	def __len__(self):
 		return len(self.filenames) // self.batch_size
@@ -31,8 +31,8 @@ class PL_Sequence(keras.utils.Sequence):
 		batch_filenames = self.filenames[i : i + self.batch_size]
 
 		# Load input images and pseudo_labels
-		x = np.zeros((self.batch_size,) + self.img_size + (3,), dtype="float32")
-		y = np.zeros((self.batch_size,) + self.img_size, dtype="uint8")
+		x = np.zeros((self.batch_size,) + self.img_size + (3,), dtype="uint8")
+		y = np.zeros((self.batch_size,) + self.img_size + (1,), dtype="uint8")
 		for j, filename in enumerate(batch_filenames):
 			image = Image.open(config.paths['dataset'] + filename)
 			x[j] = np.array(image.resize(self.img_size))
