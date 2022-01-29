@@ -10,22 +10,24 @@ from upscaler import Upscaler
 from classifier import Classifier
 import config
 
-filename = os.listdir(config.paths['dataset'])[5404]
 
-image = Image.open(config.paths['dataset'] + filename).resize((56, 56))
-arr = np.array(image)
-
-upscaler = Upscaler('espcn')
-upscaled = upscaler.upscale(arr)
-
-classifier = Classifier()
-img_class = classifier.classify(upscaled)
+start = 50
+filenames = os.listdir(config.paths['dataset'])[start:start+9]
 
 plt.figure()
-plt.subplot(1, 2, 1)
-plt.imshow(arr)
-plt.subplot(1, 2, 2)
-plt.imshow(upscaled)
-plt.show()
+for (i, filename) in enumerate(filenames):
 
-print(img_class)
+	image = Image.open(config.paths['dataset'] + filename).resize((56, 56))
+	arr = np.array(image)
+
+	upscaler = Upscaler('espcn')
+	upscaled = upscaler.upscale(arr)
+
+	classifier = Classifier()
+	img_class = classifier.classify(upscaled)
+
+	plt.subplot(3, 3, i+1)
+	plt.title(img_class)
+	plt.imshow(upscaled)
+
+plt.show()

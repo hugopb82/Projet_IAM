@@ -9,10 +9,10 @@ import config
 def main(args):
 	# Constants
 	EPOCHS = 50
-	BATCH_SIZE = 32
+	BATCH_SIZE = 5
 	NUM_CLASSES = 10
 	IMG_SIZE = (160, 160)
-	VALIDATION_SAMPLES = 50
+	VALIDATION_SAMPLES = 1
 	UPSCALING_METHOD = 'espcn'
 
 	# Build the model
@@ -21,14 +21,14 @@ def main(args):
 	model.summary()
 
 	# Load the data
-	filenames 	= os.listdir(config.paths['dataset'])[:150]
+	filenames 	= os.listdir(config.paths['dataset'])[:10]
 	random.Random(1337).shuffle(filenames)
 	train 		= PL_Sequence(
 		BATCH_SIZE, IMG_SIZE, filenames[:-VALIDATION_SAMPLES], UPSCALING_METHOD
 	)
-	validation 	= PL_Sequence(
-		BATCH_SIZE, IMG_SIZE, filenames[-VALIDATION_SAMPLES:], UPSCALING_METHOD
-	)
+	# validation 	= PL_Sequence(
+	# 	BATCH_SIZE, IMG_SIZE, filenames[-VALIDATION_SAMPLES:], UPSCALING_METHOD
+	# )
 
 	# Train the model
 	# model.compile(optimizer="rmsprop", loss="categorical_crossentropy")
@@ -36,7 +36,9 @@ def main(args):
 	callbacks = [
 		keras.callbacks.ModelCheckpoint("../results/final.h5", save_best_only=True)
 	]
-	model.fit(train, epochs=EPOCHS, validation_data=validation, callbacks=callbacks)
+	# model.fit(train, epochs=EPOCHS, validation_data=validation, callbacks=callbacks)
+	model.fit(train, epochs=EPOCHS)
+	model.save('../results/final.h5')
 
 
 if __name__ == "__main__":
