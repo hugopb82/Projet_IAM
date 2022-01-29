@@ -12,7 +12,22 @@ from segmenter import Segmenter
 from labelliser import Labelliser
 import config
 
-filename = os.listdir(config.paths['dataset'])[5404]
+labels = [
+	'background',
+	'chimpanzee',
+	'orangutan',
+	'wolf',
+	'coyotee',
+	'hamster',
+	'guineapig',
+	'cat',
+	'lynx',
+	'guepard',
+	'jaguar'
+]
+
+filename = os.listdir(config.paths['dataset'])[0]
+print(filename)
 
 image = Image.open(config.paths['dataset'] + filename)
 arr = np.array(image)
@@ -24,15 +39,16 @@ segmenter = Segmenter()
 labelliser = Labelliser(upscaler, classifier, segmenter)
 
 label = labelliser.label(image)
-
+label = label[:,:,0]
 
 plt.figure()
 
 plt.subplot(3, 4, 1)
 plt.imshow(arr)
 
-for i in range(10):
+for i in range(11):
 	plt.subplot(3, 4, i+2)
-	plt.imshow(label[:,:,i])
+	plt.title(labels[i])
+	plt.imshow(label[:,:] == i)
 
 plt.show()
