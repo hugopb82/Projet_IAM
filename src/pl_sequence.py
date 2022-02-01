@@ -5,6 +5,7 @@ from PIL import Image
 
 from src import config
 from src.upscalers.superres import SuperresUpscaler
+from src.upscalers.blurry import BlurryUpscaler
 from src.classifiers.routes import RoutesClassifier
 from src.segmenter import Segmenter
 from src.labelliser import Labelliser
@@ -17,7 +18,7 @@ class PL_Sequence(keras.utils.Sequence):
 		self.img_size = img_size
 		self.filenames = filenames
 
-		self.upscaler = SuperresUpscaler((256, 256), method)
+		self.upscaler = BlurryUpscaler((256, 256))
 		self.classifier = RoutesClassifier()
 		self.segmenter = Segmenter(self.img_size)
 		self.labelliser = Labelliser(self.img_size, self.upscaler, self.classifier, self.segmenter)

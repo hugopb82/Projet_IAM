@@ -15,7 +15,8 @@ paths = dict(
 		espcn	= 'data/weights/ESPCN_x4.pb',
 		lapsrn	= 'data/weights/LapSRN_x4.pb',
 	),
-	imagenet_labels = '../data/imagenet_class_index.json'
+	imagenet_labels = '../data/imagenet_class_index.json',
+	best_model = 'results/best.h5'
 )
 
 labels = [

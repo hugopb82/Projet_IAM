@@ -7,6 +7,7 @@ from tqdm import tqdm
 
 from src import config
 from src import utils
+from src.upscalers.naive import NaiveUpscaler
 from src.upscalers.blurry import BlurryUpscaler
 from src.upscalers.superres import SuperresUpscaler
 from src.classifiers.routes import RoutesClassifier
@@ -14,9 +15,10 @@ from src.classifiers.routes import RoutesClassifier
 def main(args):
 	filenames = utils.explore(config.paths['groundtruth'])
 	Random(1337).shuffle(filenames)
-	filenames = filenames[:5000]
+	filenames = filenames[:1000]
 
-	upscaler = BlurryUpscaler((224, 224))
+	upscaler = NaiveUpscaler((224, 224))
+	# upscaler = BlurryUpscaler((224, 224))
 	# upscaler = SuperresUpscaler((224, 224))
 
 	classifier = RoutesClassifier()
