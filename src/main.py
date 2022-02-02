@@ -19,7 +19,7 @@ def main(args):
 	# Build the model
 	from src.build_model import build_model
 	# model = build_model(IMG_SIZE, NUM_CLASSES)
-	model = keras.models.load_model('results/bestgc40.h5')
+	model = keras.models.load_model('results/bestgc50.h5')
 	model.summary()
 
 	# Load the data
