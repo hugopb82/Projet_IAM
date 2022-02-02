@@ -13,7 +13,8 @@ from src.segmenter import Segmenter
 from src.labelliser import Labelliser
 
 def main(args):
-	model = keras.models.load_model(config.paths['best_model'])
+	# model = keras.models.load_model(config.paths['best_model_gc'])
+	model = keras.models.load_model('results/bestgc50.h5')
 
 	filenames = utils.explore(config.paths['groundtruth'])
 	filename = filenames[args.number]

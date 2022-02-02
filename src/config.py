@@ -16,7 +16,8 @@ paths = dict(
 		lapsrn	= 'data/weights/LapSRN_x4.pb',
 	),
 	imagenet_labels = '../data/imagenet_class_index.json',
-	best_model = 'results/best.h5'
+	best_model = 'results/best.h5',
+	best_model_gc = 'results/bestgc.h5'
 )
 
 labels = [
@@ -24,8 +25,8 @@ labels = [
 	'lynx',
 	'wolf',
 	'coyote',
-	'cheetah',
 	'jaguar',
+	'cheetah',
 	'chimpanzee',
 	'orangutan',
 	'hamster',

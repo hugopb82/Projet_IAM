@@ -8,9 +8,9 @@ from src import config
 
 def main(args):
 	# Constants
-	EPOCHS = 15
+	EPOCHS = 50
 	BATCH_SIZE = 32
-	STEPS_PER_EPOCH = 100
+	STEPS_PER_EPOCH = 50
 	NUM_CLASSES = 10
 	IMG_SIZE = (64, 64)
 	VALIDATION_SAMPLES = 50
@@ -18,7 +18,8 @@ def main(args):
 
 	# Build the model
 	from src.build_model import build_model
-	model = build_model(IMG_SIZE, NUM_CLASSES)
+	# model = build_model(IMG_SIZE, NUM_CLASSES)
+	model = keras.models.load_model('results/bestgc40.h5')
 	model.summary()
 
 	# Load the data
